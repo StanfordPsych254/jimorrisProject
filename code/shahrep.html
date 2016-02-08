@@ -1,0 +1,173 @@
+<!-- ## Code -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Judgment Task</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="shahrep.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css" />
+  
+</head>
+<body>
+
+<!-- The instructions slide. -->
+<div class="slide" id="instructions">
+  <br>
+  <img src="images/stanford.png" alt="Stanford University">
+  <p id='logo-text'>Judgment Task</p>
+  <p class="block-text">In this experiment, you will read a hypothetical scenario and make an evaluation.</p>
+  <button type="button" class="start-butt">Start</button>
+
+  <p class="block-text"><br> <b> Note: you won't be able to preview this HIT before accepting it because it's so short. </b></p>
+
+  <p class="block-text" id="legal">By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact us at <a href="mailto://languagecoglab@gmail.com.">languagecoglab@gmail.com</a>. You must be  at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you. Note however that we have recently been made aware that your public Amazon.com profile can be accessed via your worker ID if you do not choose to opt out. If you would like to opt out of this feature, you may follow instructions available <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=16465241">here</a>.</p>
+</div>
+
+<!-- Questionnaire slide 1a - Beer on Beach (Resort)-->
+
+<div class="slide hidden" id="beer_cond-0">
+  <br>
+
+  <div align="center">
+    <p id="scenario" class="block-text">You are lying on the beach on a hot day. All you have to drink is ice water. For the last hour you have been thinking about how much you would enjoy a nice cold bottle of your favorite brand of beer. <br><br>A companion gets up to go make a phone call and offers to bring back a beer from the only nearby place where beer is sold - a fancy resort hotel. <br><br>He says that the beer might be expensive and so asks how much you are willing to pay for the beer. <br><br>He says that he will buy the beer if it costs as much or less than the price you state. But if it costs more than the price you state he will not buy it. <br><br>You trust your friend, and there is no possibility of bargaining with the bartender.</p>
+    <br><br>
+    <p><b>What price do you tell him?</p></b>
+    <br><br>
+  </div>
+  <div class="mid-align">
+    <textarea id="wtp-amt"></textarea>
+    <br><br>
+    <button type="button" class="button" id="go-to-demos_0">Next</button>
+  </div>
+</div>
+
+<!-- Questionnaire slide 1b - Beer on Beach (Grocery)-->
+
+<div class="slide hidden" id="beer_cond-1">
+  <br>
+
+  <div align="center">
+    <p id="scenario" class="block-text">You are lying on the beach on a hot day. All you have to drink is ice water. For the last hour you have been thinking about how much you would enjoy a nice cold bottle of your favorite brand of beer. <br><br>A companion gets up to go make a phone call and offers to bring back a beer from the only nearby place where beer is sold - a small, run-down grocery store. <br><br>He says that the beer might be expensive and so asks how much you are willing to pay for the beer. <br><br>He says that he will buy the beer if it costs as much or less than the price you state. But if it costs more than the price you state he will not buy it. <br><br>You trust your friend, and there is no possibility of bargaining with the store owner.</p>
+    <br><br>
+    <p><b>What price do you tell him?</p></b>
+    <br><br>
+  </div>
+  <div class="mid-align">
+    <textarea id="wtp-amt"></textarea>
+    <br><br>
+    <button type="button" class="button" id="go-to-demos_1">Next</button>
+  </div>
+</div>
+ 
+ <!-- Income Question-->
+
+<div class="slide hidden" id="demos">
+  <br>
+
+  <div align="center">
+    <p class="block-text"><b>What is your total household income, including all earners in your household?</b></p><br>
+  </div>
+  <div>
+      <ul>
+        <li class="option">
+          <input type="radio" id="income-1" value="1"/>
+          <div class="number-label">Less than $10,000</div>
+
+        </li>
+        <li class="option">
+          <input type="radio" id="income-2" value="2"/>
+          <div class="number-label">$10,000-$19,999</div>
+
+        </li>
+        <li class="option">
+          <input type="radio" id="income-3" value="3"/>
+          <div class="number-label">$20,000-$29,999</div>
+
+        </li>
+        <li class="option">
+          <input type="radio" id="income-4" value="4"/>
+          <div class="number-label">$30,000-$39,999</div>
+          
+        </li>
+        <li class="option">
+          <input type="radio" id="income-5" value="5"/>
+          <div class="number-label">$40,000-$49,999</div>
+          
+        </li>
+        <li class="option">
+          <input type="radio" id="income-6" value="6"/>
+          <div class="number-label">$50,000-$59,999</div>
+          
+        </li>
+        <li class="option">
+          <input type="radio" id="income-7" value="7"/>
+          <div class="number-label">$60,000-$69,999</div>
+          
+        </li>
+        <li class="option">
+          <input type="radio" id="income-8" value="8"/>
+          <div class="number-label">$70,000-$79,999</div>
+          
+        </li>
+        <li class="option">
+          <input type="radio" id="income-9" value="9"/>
+          <div class="number-label">$80,000-$89,999</div>
+         
+        </li>
+        <li class="option">
+           <input type="radio" id="income-10" value="10"/>
+           <div class="number-label">$90,000-$99,999</div>
+         
+        </li>
+        <li class="option">
+          <input type="radio" id="income-11" value="11"/>
+          <div class="number-label">$100,000-$149,000</div>
+          
+        </li>
+        <li class="option">
+          <input type="radio" id="income-12" value="12"/>
+          <div class="number-label">More than $150,000</div>
+          
+        </li>
+      </ul>
+    </div>  
+    <br><br>
+    
+
+  <div align="center">
+    <p><b>Including you, how many people live in your household?</p></b>
+    <br><br>
+  </div>
+  <div class="mid-align">
+    <textarea id="hh-num"></textarea>
+    <br><br>
+    <button type="button" class="button" id="go-to-comments">Next</button>
+  </div>
+</div>
+
+<!-- Comments--> 
+
+<div class="slide hidden" id="comments">
+<form>
+   <div align="center">
+    <p class="block-text"><b>Any general comments about the experiment?</b></p>
+  </div>
+   <p>
+     <textarea type="textarea" id="expcomments" style="width:100%" name="expgen"></textarea>
+   </p>
+ </form>
+ <button type="button" class="button" id="go-to-finish">Submit</button>
+ </div>
+
+
+<!-- The finish slide. -->
+<div class="slide hidden" id="finished">
+ You're finished - thanks for participating! Submitting to Mechanical Turk...
+</div>
+
+</body>
+</html>
