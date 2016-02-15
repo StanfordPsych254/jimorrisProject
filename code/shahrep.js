@@ -32,3 +32,30 @@ $(function() {
     $('#finished').removeClass('hidden');
   });
 })
+
+function isNumberKey(evt)
+       {
+          var charCode = (evt.which) ? evt.which : evt.keyCode;
+          if (charCode != 46 && charCode > 31 
+            && (charCode < 48 || charCode > 57))
+             return false;
+
+          return true;
+       }
+
+//Work on This!!
+jsPsych.init({
+    display_element: $('#jspsych_target'),
+    show_progress_bar: true,
+    experiment_structure: the_experiment,
+    on_finish: function() {
+        var alldata = jsPsych.data.getData();
+        alldata.push({condition: condition})
+        alldata.push({wtp: wtp_amt})  
+        alldata.push({income: Income})  
+        alldata.push({HH: hh_num})
+        alldata.push({Comments: expcomments})    
+        turk.submit(alldata)
+        jsPsych.data.displayData('json')
+    }
+  });

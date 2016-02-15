@@ -18,13 +18,14 @@
 <div class="slide" id="instructions">
   <br>
   <img src="images/stanford.png" alt="Stanford University">
+  <br><br>
   <p id='logo-text'>Judgment Task</p>
   <p class="block-text">In this experiment, you will read a hypothetical scenario and make an evaluation.</p>
   <button type="button" class="start-butt">Start</button>
 
   <p class="block-text"><br> <b> Note: you won't be able to preview this HIT before accepting it because it's so short. </b></p>
 
-  <p class="block-text" id="legal">By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact us at <a href="mailto://languagecoglab@gmail.com.">languagecoglab@gmail.com</a>. You must be  at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you. Note however that we have recently been made aware that your public Amazon.com profile can be accessed via your worker ID if you do not choose to opt out. If you would like to opt out of this feature, you may follow instructions available <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=16465241">here</a>.</p>
+  <p class="block-text" id="legal">By answering the following questions, you are participating in a study being performed by the Stanford Department of Psychology. If you have questions about this research, please contact us at <a href="mailto:stanfordpysch254@gmail.com">stanfordpysch254@gmail.com</a>. You must be at least 18 years old to participate. Your participation in this research is voluntary. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you. Note however that we have recently been made aware that your public Amazon.com profile can be accessed via your worker ID if you do not choose to opt out. If you would like to opt out of this feature, you may follow instructions available <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=16465241">here</a>.</p>
 </div>
 
 <!-- Questionnaire slide 1a - Beer on Beach (Resort)-->
@@ -39,7 +40,8 @@
     <br><br>
   </div>
   <div class="mid-align">
-    <textarea id="wtp-amt"></textarea>
+    <textarea id="wtp_amt" id="txtChar" onkeypress="return isNumberKey(event)" 
+           type="text" name="txtChar">$</textarea>
     <br><br>
     <button type="button" class="button" id="go-to-demos_0">Next</button>
   </div>
@@ -57,7 +59,8 @@
     <br><br>
   </div>
   <div class="mid-align">
-    <textarea id="wtp-amt"></textarea>
+    <textarea id="wtp_amt" id="txtChar" onkeypress="return isNumberKey(event)" 
+           type="text" name="txtChar">$</textarea>
     <br><br>
     <button type="button" class="button" id="go-to-demos_1">Next</button>
   </div>
@@ -71,70 +74,23 @@
   <div align="center">
     <p class="block-text"><b>What is your total household income, including all earners in your household?</b></p><br>
   </div>
-  <div>
-      <ul>
-        <li class="option">
-          <input type="radio" id="income-1" value="1"/>
-          <div class="number-label">Less than $10,000</div>
 
-        </li>
-        <li class="option">
-          <input type="radio" id="income-2" value="2"/>
-          <div class="number-label">$10,000-$19,999</div>
+<ul class="answers">
+  <input type="radio" name="Income" value="1" id="Income_1"><label for="Income_1">Less than $10,000</label><br/>
+  <input type="radio" name="Income" value="2" id="Income_2"><label for="Income_2">$10,000-$19,999</label><br/>
+  <input type="radio" name="Income" value="3" id="Income_3"><label for="Income_3">$20,000-$29,999</label><br/>
+  <input type="radio" name="Income" value="4" id="Income_4"><label for="Income_4">$30,000-$39,999</label><br/>
+  <input type="radio" name="Income" value="5" id="Income_5"><label for="Income_5">$40,000-$49,999</label><br/>
+  <input type="radio" name="Income" value="6" id="Income_6"><label for="Income_6">$50,000-$59,999</label><br/>
+  <input type="radio" name="Income" value="7" id="Income_7"><label for="Income_7">$60,000-$69,999</label><br/>
+  <input type="radio" name="Income" value="8" id="Income_8"><label for="Income_8">$70,000-$79,999</label><br/>
+  <input type="radio" name="Income" value="9" id="Income_9"><label for="Income_9">$80,000-$89,999</label><br/>
+  <input type="radio" name="Income" value="10" id="Income_10"><label for="Income_10">$90,000-$99,999</label><br/>
+  <input type="radio" name="Income" value="11" id="Income_11"><label for="Income_11">$100,000-$149,000</label><br/>
+  <input type="radio" name="Income" value="12" id="Income_12"><label for="Income_12">More than $150,000</label><br/>
+</ul>
 
-        </li>
-        <li class="option">
-          <input type="radio" id="income-3" value="3"/>
-          <div class="number-label">$20,000-$29,999</div>
-
-        </li>
-        <li class="option">
-          <input type="radio" id="income-4" value="4"/>
-          <div class="number-label">$30,000-$39,999</div>
-          
-        </li>
-        <li class="option">
-          <input type="radio" id="income-5" value="5"/>
-          <div class="number-label">$40,000-$49,999</div>
-          
-        </li>
-        <li class="option">
-          <input type="radio" id="income-6" value="6"/>
-          <div class="number-label">$50,000-$59,999</div>
-          
-        </li>
-        <li class="option">
-          <input type="radio" id="income-7" value="7"/>
-          <div class="number-label">$60,000-$69,999</div>
-          
-        </li>
-        <li class="option">
-          <input type="radio" id="income-8" value="8"/>
-          <div class="number-label">$70,000-$79,999</div>
-          
-        </li>
-        <li class="option">
-          <input type="radio" id="income-9" value="9"/>
-          <div class="number-label">$80,000-$89,999</div>
-         
-        </li>
-        <li class="option">
-           <input type="radio" id="income-10" value="10"/>
-           <div class="number-label">$90,000-$99,999</div>
-         
-        </li>
-        <li class="option">
-          <input type="radio" id="income-11" value="11"/>
-          <div class="number-label">$100,000-$149,000</div>
-          
-        </li>
-        <li class="option">
-          <input type="radio" id="income-12" value="12"/>
-          <div class="number-label">More than $150,000</div>
-          
-        </li>
-      </ul>
-    </div>  
+  
     <br><br>
     
 
@@ -143,7 +99,8 @@
     <br><br>
   </div>
   <div class="mid-align">
-    <textarea id="hh-num"></textarea>
+    <textarea id="hh_num" id="txtChar" onkeypress="return isNumberKey(event)" 
+           type="text" name="txtChar"></textarea>
     <br><br>
     <button type="button" class="button" id="go-to-comments">Next</button>
   </div>

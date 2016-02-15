@@ -34,6 +34,10 @@ body {
 	text-align: center;
 }
 
+.answers {
+	font-weight: normal; 
+}
+
 input, select, button {font-family: Georgia, serif; font-size: 14px;}
 
 input[type="radio"] {
