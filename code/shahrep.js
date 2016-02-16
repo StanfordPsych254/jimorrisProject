@@ -28,6 +28,11 @@ $(function() {
 
 //Comments
   $('#go-to-finish').click(function(event) {
+
+    experiment.log_response();
+    experiment.submit_others();
+    experiment.end();
+
     $('#comments').addClass('hidden');
     $('#finished').removeClass('hidden');
   });
@@ -44,18 +49,43 @@ function isNumberKey(evt)
        }
 
 //Work on This!!
-jsPsych.init({
-    display_element: $('#jspsych_target'),
-    show_progress_bar: true,
-    experiment_structure: the_experiment,
-    on_finish: function() {
-        var alldata = jsPsych.data.getData();
-        alldata.push({condition: condition})
-        alldata.push({wtp: wtp_amt})  
-        alldata.push({income: Income})  
-        alldata.push({HH: hh_num})
-        alldata.push({Comments: expcomments})    
-        turk.submit(alldata)
-        jsPsych.data.displayData('json')
-    }
-  });
+var experiment = {
+
+
+    // The object to be submitted.
+    data: {
+      wtp_b: [],
+      wtp_g: [],
+      income: [],
+      hh: [],
+      comments: [],
+    },
+
+    end: function() {
+    // Wait 1.5 seconds and then submit the whole experiment object to Mechanical Turk
+    //(mmturkey filters out the functions so we know we're just submitting properties [i.e. data])
+    setTimeout(function() { turk.submit(experiment.data) }, 1500);
+    },
+
+    // LOG RESPONSE
+    log_response: function() {
+      var response_logged = false;
+
+      //Array of radio buttons
+      var radio = document.getElementsByName("Income");
+
+      // Loop through radio buttons
+      for (i = 0; i < radio.length; i++) {
+        if (radio[i].checked) {
+          experiment.data.income.push(radio[i].value);
+          response_logged = true;
+          }
+        }
+      },
+    submit_others: function() {
+      experiment.data.wtp_b.push(document.getElementById("wtp_amt_beach").value);
+      experiment.data.wtp_g.push(document.getElementById("wtp_amt_grocery").value);
+      experiment.data.hh.push(document.getElementById("hh_num").value);
+      experiment.data.comments.push(document.getElementById("expcomments").value);
+  }
+}

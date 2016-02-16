@@ -11,6 +11,10 @@ body {
 	line-height: 20px;
 }
 
+label {
+    font-weight: normal;
+}
+
 #scenario {
 	font-size: 16px;
 }

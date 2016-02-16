@@ -6,7 +6,8 @@
   <title>Judgment Task</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <script src="shahrep.js"></script>
+  
+  <script src="mmturkey-0.6.js"></script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css" />
@@ -40,7 +41,7 @@
     <br><br>
   </div>
   <div class="mid-align">
-    <textarea id="wtp_amt" id="txtChar" onkeypress="return isNumberKey(event)" 
+    <textarea id="wtp_amt_beach" id="txtChar" onkeypress="return isNumberKey(event)" 
            type="text" name="txtChar">$</textarea>
     <br><br>
     <button type="button" class="button" id="go-to-demos_0">Next</button>
@@ -59,7 +60,7 @@
     <br><br>
   </div>
   <div class="mid-align">
-    <textarea id="wtp_amt" id="txtChar" onkeypress="return isNumberKey(event)" 
+    <textarea id="wtp_amt_grocery" id="txtChar" onkeypress="return isNumberKey(event)" 
            type="text" name="txtChar">$</textarea>
     <br><br>
     <button type="button" class="button" id="go-to-demos_1">Next</button>
@@ -124,7 +125,10 @@
 <!-- The finish slide. -->
 <div class="slide hidden" id="finished">
  You're finished - thanks for participating! Submitting to Mechanical Turk...
+ <br><br>
 </div>
+
+<script src="shahrep.js"></script>
 
 </body>
 </html>
