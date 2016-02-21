@@ -15,6 +15,11 @@
 </head>
 <body>
 
+<!--Error-->
+<div class="error hidden">
+    Please answer all of the questions below before continuing to the next page.
+</div>
+
 <!-- The instructions slide. -->
 <div class="slide" id="instructions">
   <br>
@@ -22,7 +27,7 @@
   <br><br>
   <p id='logo-text'>Judgment Task</p>
   <p class="block-text">In this experiment, you will read a hypothetical scenario and make an evaluation.</p>
-  <button type="button" class="start-butt">Start</button>
+  <button type="button" class="start-butt hidden">Start</button>
 
   <p class="block-text"><br> <b> Note: you won't be able to preview this HIT before accepting it because it's so short. </b></p>
 
@@ -103,9 +108,123 @@
     <textarea id="hh_num" id="txtChar" onkeypress="return isNumberKey(event)" 
            type="text" name="txtChar"></textarea>
     <br><br>
-    <button type="button" class="button" id="go-to-comments">Next</button>
+    <button type="button" class="button" id="go-to-beer">Next</button>
   </div>
 </div>
+
+<!-- Drink Beer-->
+<div class="slide hidden" id="beer_drink">
+    <div class="header">How much do you like to drink beer?</div>
+
+    <div class="labels">
+      <span class="top-scale"><div class="special">Very<br>Much</div></span>
+      <span class="bottom-scale"><div class="special">Not<br>At All</div></span>
+    </div>
+
+    <div class="options">
+      <ul>
+        <li class="option">
+          <div class="number-label">1</div>
+          <input type="radio" name="beer_like" id="beer_like_1" value="1"/>
+        </li>
+        <li class="option">
+          <div class="number-label">2</div>
+          <input type="radio" name="beer_like" id="beer_like_2" value="2"/>
+        </li>
+        <li class="option">
+          <div class="number-label">3</div>
+          <input type="radio" name="beer_like" id="beer_like_3" value="3"/>
+        </li>
+        <li class="option">
+          <div class="number-label">4</div>
+          <input type="radio" name="beer_like" id="beer_like_4" value="4"/>
+        </li>
+        <li class="option">
+          <div class="number-label">5</div>
+          <input type="radio" name="beer_like" id="beer_like_5" value="5"/>
+        </li>
+        <li class="option">
+          <div class="number-label">6</div>
+          <input type="radio" name="beer_like" id="beer_like_6" value="6"/>
+        </li>
+        <li class="option">
+          <div class="number-label">7</div>
+          <input type="radio" name="beer_like" id="beer_like_7" value="7"/>
+        </li>
+      </ul>
+    </div>
+    <br><br>
+    <div class="mid-align">
+    <button type="button" class="button" id="go-to-other">Next</button>
+    </div>
+  </div>
+
+<!-- Other Demos-->
+  <div class="slide hidden" id="other_demos">
+    <div class="header">What is your gender?</div>
+    <div>
+      <input type="radio" name="gender" id="gender-male" value="Male"/>
+      <label for="gender-male" class="survey-question">Male</label>
+    </div>
+    <div>
+      <input type="radio" name="gender" id="gender-female" value="Female"/>
+      <label for="gender-female" class="survey-question">Female</label>
+    </div>
+    <div>
+      <input type="radio" name="gender" id="gender-other" value="Other"/>
+      <label for="gender-other" class="survey-question">Other</label>
+    </div>
+
+    <div class="header">How old are you?<br></div>
+    <input type="text" id="age-box" id="txtChar" onkeypress="return isNumberKey(event)" 
+           type="text" name="txtChar" />
+
+    <div class="question-header">What is your race/ethnicity?<br>
+    (Please check all that apply).</div>
+    <div>
+      <input type="checkbox" name="race" id="race1" value="amInd"/>
+      <label for="race1" class="survey-question">American Indian or Alaskan Native</label>
+    </div>
+    <div>
+      <input type="checkbox" name="race" id="race2" value="asian"/>
+      <label for="race2" class="survey-question">Asian</label>
+    </div>
+    <div>
+      <input type="checkbox" name="race" id="race3" value="black"/>
+      <label for="race3" class="survey-question">Black/African American</label>
+    </div>
+    <div>
+      <input type="checkbox" name="race" id="race4" value="hispanic"/>
+      <label for="race4" class="survey-question">Hispanic/Latino</label>
+    </div>
+    <div>
+      <input type="checkbox" name="race" id="race5" value="natHaw"/>
+      <label for="race5" class="survey-question">Native Hawaiian or US
+      Pacific Islander</label>
+    </div>
+    <div>
+      <input type="checkbox" name="race" id="race6" value="white"/>
+      <label for="race6" class="survey-question">White/Caucasian</label>
+    </div>
+    <div>
+      <input type="checkbox" name="race" id="race7" value="other"/>
+      <label for="race7" class="survey-question">Other</label>
+    </div>
+
+    <div class="header">Is English your first language?</div>
+    <div>
+      <input type="radio" name="english" id="english-yes" value="Yes"/>
+      <label for="english-yes" class="survey-question">Yes</label>
+    </div>
+    <div>
+      <input type="radio" name="english" id="english-no" value="No"/>
+      <label for="english-no" class="survey-question">No</label>
+    </div>
+    <br><br>
+    <div class="mid-align">
+    <button type="button" class="button" id="go-to-comments">Next</button>
+    </div>
+  </div>
 
 <!-- Comments--> 
 
