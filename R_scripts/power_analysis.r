@@ -12,7 +12,8 @@ b$Frame = factor(b$Resort)
 levels(b$Frame)[1] = 'Store'
 levels(b$Frame)[2] = 'Resort'
 
-summary(lm(Beer~Split*Frame,data=b))
+summary(aov(Beer~Split*Frame,data=b))
+
 
 contrasts(b$Split) = cbind(Low=c(1,0))
 
@@ -40,9 +41,11 @@ summary(lm(Beer~Split*Frame,data=c))
 
 contrasts(c$Split) = cbind(Low=c(1,0))
 
-summary(lm(scale(Beer)~Split*Frame,data=c))
+summary(aov(scale(Beer)~Split*Frame,data=c))
 #Cohen's d = .196
 #Variance = .03
+
+all = rbind(b[,c('Split','Frame','Beer')],c[,c('Split','Frame','Beer')])
 
 d$Split = factor(d$split)
 levels(d$Split)[1] = 'Low'
@@ -75,12 +78,12 @@ summary(lm(scale(Beer)~Split*Frame,data=d_2))
 #Cohen's d = .0952
 #Variance = .0081
 
-x=c(.48,.20,.10)
-y=c(.1,.03,.008)
+x=c(.48,.20)
+y=c(.1,.03)
 
 library(metafor)
 
 rma(x,y,'FE')
 library(pwr)
-pwr.t.test(n=2642,d = .1546, sig.level = .05)
-pwr.t.test(d = .1546, sig.level = .05,power = .8)
+pwr.t.test(n=500,d = .26, sig.level = .05)
+pwr.t.test(n=500,d=.26, sig.level = .05)
