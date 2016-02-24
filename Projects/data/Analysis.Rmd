@@ -1,0 +1,136 @@
+```{r Import Packages}
+rm(list=ls())
+
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(rjson)
+library(psych)
+```
+
+##Import Data
+
+```{r Data}
+path = "/Users/Josh/Dropbox/Stanford PhD/Classes/Year 2/Winter 2016/Stats 254/Git/jimorrisProject/Projects/mturk/"
+files = dir(paste0(path,"sandbox-results/"), 
+             pattern = "*.json")
+d.raw = data.frame()
+
+for (f in files) {
+  jf = paste0(path, "sandbox-results/", f)
+  jd = fromJSON(paste(readLines(jf), collapse=""))
+  id = data.frame(workerid = jd$WorkerId,
+                  wtp_g = jd$answers$data$wtp_g,
+                  wtp_b = jd$answers$data$wtp_b,
+                  income = jd$answers$data$income,
+                  hh_num = jd$answers$data$hh,
+                  beer_like = jd$answers$data$beer,
+                  age = jd$answers$data$age,
+                  gender = jd$answers$data$gen,
+                  english = jd$answers$data$engl,
+                  race = jd$answers$data$race_ethn,
+                  comments = jd$answers$data$comments)
+  d.raw = bind_rows(d.raw, id)
+}
+```
+
+##Cleaning Data
+
+```{r Clean}
+d.raw$cond[d.raw$wtp_g == '$'] = 'resort'
+d.raw$cond[d.raw$wtp_b == '$'] = 'grocery'
+d.raw$cond = factor(d.raw$cond)
+
+d.raw$wtp[d.raw$wtp_g == '$'] = d.raw$wtp_b[d.raw$wtp_g == '$']
+d.raw$wtp[d.raw$wtp_b == '$'] = d.raw$wtp_g[d.raw$wtp_b == '$']
+d.raw$wtp = as.numeric(gsub('\\$','',d.raw$wtp))
+
+d.raw$income_num[d.raw$income == 1] = 5000
+d.raw$income_num[d.raw$income == 2] = 15000
+d.raw$income_num[d.raw$income == 3] = 25000
+d.raw$income_num[d.raw$income == 4] = 35000
+d.raw$income_num[d.raw$income == 5] = 45000
+d.raw$income_num[d.raw$income == 6] = 55000
+d.raw$income_num[d.raw$income == 7] = 65000
+d.raw$income_num[d.raw$income == 8] = 75000
+d.raw$income_num[d.raw$income == 9] = 85000
+d.raw$income_num[d.raw$income == 10] = 95000
+d.raw$income_num[d.raw$income == 11] = 125000
+d.raw$income_num[d.raw$income == 12] = 150000
+
+d.raw$hh_num = as.numeric(d.raw$hh_num)
+
+d.raw$SES = d.raw$income_num / sqrt(d.raw$hh_num)
+
+d.raw$beer_like = as.numeric(d.raw$beer_like)
+
+d.raw$age = as.numeric(d.raw$age)
+
+d.raw$gender = factor(d.raw$gender)
+levels(d.raw$gender) = c("Female","Male","Other")
+
+d.raw$english = factor(d.raw$english)
+levels(d.raw$english) = c("No","Yes")
+
+d.raw$race = factor(d.raw$race)
+
+d = d.raw %>%
+  select(workerid,cond,wtp,SES,income_num,hh_num,beer_like,gender,age,english,race)
+```
+
+##Median Split
+
+```{r Split}
+#Median in Study 1: 31819.80515
+#Median in Study 2: 25980.76211
+ses_med_1 = 31819.80515
+ses_med_2 = 25980.76211
+ses_med_3 = median(d$SES)
+
+d$SES_cat_1[d$SES >= ses_med_1] = 'High'
+d$SES_cat_1[d$SES < ses_med_1] = 'Low'
+d$SES_cat_1 = factor(d$SES_cat_1)
+
+d$SES_cat_2[d$SES >= ses_med_2] = 'High'
+d$SES_cat_2[d$SES < ses_med_2] = 'Low'
+d$SES_cat_2 = factor(d$SES_cat_2)
+
+d$SES_cat_3[d$SES >= ses_med_3] = 'High'
+d$SES_cat_3[d$SES < ses_med_3] = 'Low'
+d$SES_cat_3 = factor(d$SES_cat_3)
+```
+
+##Excluding Data
+
+```{r Outliers}
+wtp_hi = mean(d$wtp) + sd(d$wtp)*3
+wtp_lo = mean(d$wtp) - sd(d$wtp)*3
+
+d.out = d[d$wtp > wtp_lo & d$wtp < wtp_hi,]
+```
+
+##Planned Analyses
+
+```{r Planned Analyses}
+#Interaction with different medians - when SES is high
+reg_1_H = lm(wtp ~ cond * SES_cat_1, data = d.out); summary(reg_1_H)
+reg_2_H = lm(wtp ~ cond * SES_cat_2, data = d.out); summary(reg_2_H)
+reg_3_H = lm(wtp ~ cond * SES_cat_3, data = d.out); summary(reg_3_H)
+
+#Change simple effect
+contrasts(d.out$SES_cat_1)=cbind(High=c(1,0))
+contrasts(d.out$SES_cat_2)=cbind(High=c(1,0))
+contrasts(d.out$SES_cat_3)=cbind(High=c(1,0))
+
+#Interaction with different medians - when SES is low
+reg_1_L = lm(wtp ~ cond * SES_cat_1, data = d.out); summary(reg_1_L)
+reg_2_L = lm(wtp ~ cond * SES_cat_2, data = d.out); summary(reg_2_L)
+reg_3_L = lm(wtp ~ cond * SES_cat_3, data = d.out); summary(reg_3_L)
+
+#Interaction with continuous SES
+reg_c = lm(wtp ~ cond * SES, data = d.out); summary(reg_c)
+```
+
+
+
+
