@@ -1,0 +1,309 @@
+#REPORT TEMPLATE
+
+##Replication of Studies 1b-1c by Shah et al. (2015, Psychological Science)
+
+###Josh Morris
+###jimorris@stanford.edu
+
+####Introduction
+
+Shah et al. examined whether scarcity affects cognition and accordingly lowers an individual's susceptibility to context effects. In studies 1b-1d, the authors used a classic paradigm (Thaler's "beer on the beach" problem) to investigate how scaricty affects the role of context cues in product valuation.
+
+In this study, we attempted to replicate the results of Shah et al. by finding that the "beer on the beach" effect - where individuals provide higher WTP for an identical beer when it is to be purchased from a resort bar compared to a grocery store - is moderated by income level. Specfically, we expect that unlike individuals with high income, individuals with low income will not show a significant difference in WTP between purchase contexts.
+
+####Methods
+
+#####Power Analysis
+
+We calculated the power of studies 1b and 1c by recreating the analysis of Shah et al. We specifically used the t-statistic of the interaction terms from the analysis of scenario frame and median split SES on WTP from studies 1b and 1c.
+
+```{r Effct Size of 1b}
+library(curl)
+
+b = read.csv(curl("https://raw.githubusercontent.com/StanfordPsych254/jimorrisProject/master/original_materials_data/1b.csv"))
+
+b$Split = factor(b$Split)
+levels(b$Split)[1] = 'Low'
+levels(b$Split)[2] = 'High'
+
+b$Frame = factor(b$Resort)
+levels(b$Frame)[1] = 'Store'
+levels(b$Frame)[2] = 'Resort'
+
+summary(lm(Beer~Split*Frame,data=b))
+```
+
+With a sample of 151, the t-statistic of the interactive term is 2.919. This would suggest an effect size of .48. The R squared is equal to .082.
+
+```{r Effct Size of 1c}
+c = read.csv(curl("https://raw.githubusercontent.com/StanfordPsych254/jimorrisProject/master/original_materials_data/1c.csv"))
+
+c$Split = factor(c$split)
+levels(c$Split)[1] = 'Low'
+levels(c$Split)[2] = 'High'
+
+c$Frame = factor(c$resort)
+levels(c$Frame)[1] = 'Store'
+levels(c$Frame)[2] = 'Resort'
+
+c$Beer = NA
+c$pay[c$pay == '$3 '] = '3'
+c$Beer = as.numeric(as.character(c$pay))
+
+#Removed outliers in this study at less than 20; in d) left 20 in
+c=c[c$Beer < 20,]
+
+summary(lm(Beer~Split*Frame,data=c))
+```
+
+With a sample of 604, the t-statistic of the interactive term is 2.350. This would suggest an effect size of .20. The R squared is equal to .037.
+
+```{r Meta Analysis}
+library(metafor)
+x=c(.48,.20)
+y=c(.082,.037)
+
+rma(x,y,'FE')
+```
+
+This would suggest an effect size overall of .29.
+
+```{r Power Analysis}
+library(pwr)
+
+pwr.t.test(n=151,d=.29, sig.level=.05) #Power = .71
+pwr.t.test(n=580,d=.29, sig.level=.05) #Power = .99
+
+pwr.t.test(d =.29, sig.level=.05, power=.8) #n = 188
+pwr.t.test(d =.29, sig.level=.05, power=.9) #n = 250
+
+pwr.t.test(n=350, d =.29, sig.level=.05) #Power = .97
+
+pwr.t.test(n=350, sig.level=.05, power=.8) #ES for 80% power: d = .21
+```
+
+At 350 participants, we estimate a power of .97.
+
+#####Planned Sample
+
+We planned a sample of 350 participants from mTurk. We excluded the sample to only U.S. participants.
+
+#####Materials
+
+The materials from the original study were provided by the authors online. 
+
+In the below text, participants either saw the scenario with the parenthetical phrases or the bracketed phrases:
+
+    "You are lying on the beach on a hot day. All you have to drink is ice water. For the last hour you have been thinking about how much you would enjoy a nice cold bottle of your favorite brand of beer. A companion gets up to go make a phone call and offers to bring back a beer from the only nearby place where beer is sold (a fancy resort hotel) [a small, run-down grocery store]. He says that the beer might be expensive and so asks how much you are willing to pay for the beer. He says that he will buy the beer if it costs as much or less than the price you state. But if it costs more than the price you state he will not buy it. You trust your friend, and there is no possibility of bargaining with the (bartender) [store owner].
+
+    What price do you tell him?"
+
+The income question was as follows:
+
+    "What is your total household income, including all earners in your household?
+
+    Less than $10,000
+    $10,000-$19,999
+    $20,000-$29,999
+    $30,000-$39,999
+    $40,000-$49,999
+    $50,000-$59,999
+    $60,000-$69,999
+    $70,000-$79,999
+    $80,000-$89,999
+    $90,000-$99,999
+    $100,000-$149,000
+    More than $150,000"
+
+Finally, we also asked for the number of members in each household:
+
+    "Including you, how many people live in your household? (open ended)"
+
+#####Procedure
+
+The procedure was followed exactly as stated in the original study:
+
+    "Participants read the beer-on-the-beach scenario and indicated their WTP for the beer."
+
+#####Analysis Plan
+
+The analysis plan was simple. As with the original study, we removed outliers of the WTP measure that is more than 3 standard deviations from the mean and converted the income and household numbers variables to a single measure of SES. Following the analysis from the original study, this SES value was calculated by taking the midpoint of the participant’s income bin (or $150,000 for the highest bin) and then dividing that value by the square root of the participant’s household size.
+
+Next, we ran two interaction analyses of scenario frame and SES.
+
+In the first analyses we used a median split on SES. For this analysis, we used three different median split criterias: a) the median split of the original Study 1b (where median SES = 31819); b) the median split of the original Study 1c (where median SES = 25980); and c) the median split of the replication sample. An interaction of scenario and frame and SES (median split) was performed for each median split criteria.
+
+In the second analyses we treated SES as a continuous variable. An additional interaction of scenario frame and SES (continuous) was performed.
+
+#####Differences from Original Study
+
+The only difference is sample size. In the original study, the authors used 1b) mTurk, N = 151; 1c) mTurk, N = 604.
+
+In this replication, we only collected data from mTurk and with a sample of XX.
+
+####(Post Data Collection) Methods Addendum
+
+#####Actual Sample
+  sample size, demographics, data exclusions based on rules spelled out in analysis plan
+
+#####Differences from pre-data collection methods plan
+	Any differences from what was described as the original plan, or “none”.
+
+
+####Results
+
+#####Data preparation
+
+```{r Packages}
+rm(list=ls())
+
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(rjson)
+library(psych)
+```
+
+######Import Data
+
+```{r Data}
+path = "/Users/Josh/Dropbox/Stanford PhD/Classes/Year 2/Winter 2016/Stats 254/Git/jimorrisProject/Projects/mturk/"
+files = dir(paste0(path,"sandbox-results/"), 
+             pattern = "*.json")
+d.raw = data.frame()
+
+for (f in files) {
+  jf = paste0(path, "sandbox-results/", f)
+  jd = fromJSON(paste(readLines(jf), collapse=""))
+  id = data.frame(workerid = jd$WorkerId,
+                  wtp_g = jd$answers$data$wtp_g,
+                  wtp_b = jd$answers$data$wtp_b,
+                  income = jd$answers$data$income,
+                  hh_num = jd$answers$data$hh,
+                  beer_like = jd$answers$data$beer,
+                  age = jd$answers$data$age,
+                  gender = jd$answers$data$gen,
+                  english = jd$answers$data$engl,
+                  race = jd$answers$data$race_ethn,
+                  comments = jd$answers$data$comments)
+  d.raw = bind_rows(d.raw, id)
+}
+```
+
+##Cleaning Data
+
+```{r Clean}
+d.raw$cond[d.raw$wtp_g == '$'] = 'resort'
+d.raw$cond[d.raw$wtp_b == '$'] = 'grocery'
+d.raw$cond = factor(d.raw$cond)
+
+d.raw$wtp[d.raw$wtp_g == '$'] = d.raw$wtp_b[d.raw$wtp_g == '$']
+d.raw$wtp[d.raw$wtp_b == '$'] = d.raw$wtp_g[d.raw$wtp_b == '$']
+d.raw$wtp = as.numeric(gsub('\\$','',d.raw$wtp))
+
+d.raw$income_num[d.raw$income == 1] = 5000
+d.raw$income_num[d.raw$income == 2] = 15000
+d.raw$income_num[d.raw$income == 3] = 25000
+d.raw$income_num[d.raw$income == 4] = 35000
+d.raw$income_num[d.raw$income == 5] = 45000
+d.raw$income_num[d.raw$income == 6] = 55000
+d.raw$income_num[d.raw$income == 7] = 65000
+d.raw$income_num[d.raw$income == 8] = 75000
+d.raw$income_num[d.raw$income == 9] = 85000
+d.raw$income_num[d.raw$income == 10] = 95000
+d.raw$income_num[d.raw$income == 11] = 125000
+d.raw$income_num[d.raw$income == 12] = 150000
+
+d.raw$hh_num = as.numeric(d.raw$hh_num)
+
+d.raw$SES = d.raw$income_num / sqrt(d.raw$hh_num)
+
+d.raw$beer_like = as.numeric(d.raw$beer_like)
+
+d.raw$age = as.numeric(d.raw$age)
+
+d.raw$gender = factor(d.raw$gender)
+levels(d.raw$gender) = c("Female","Male","Other")
+
+d.raw$english = factor(d.raw$english)
+
+d.raw$race = factor(d.raw$race)
+
+d = d.raw %>%
+  select(workerid,cond,wtp,SES,income_num,hh_num,beer_like,gender,age,english,race)
+```
+
+######Median Splits
+
+```{r Splits}
+#Median in Study 1b: 31819.80515
+#Median in Study 2c: 25980.76211
+ses_med_1 = 31819.80515
+ses_med_2 = 25980.76211
+ses_med_3 = median(d$SES)
+
+d$SES_cat_1[d$SES >= ses_med_1] = 'High'
+d$SES_cat_1[d$SES < ses_med_1] = 'Low'
+d$SES_cat_1 = factor(d$SES_cat_1)
+
+d$SES_cat_2[d$SES >= ses_med_2] = 'High'
+d$SES_cat_2[d$SES < ses_med_2] = 'Low'
+d$SES_cat_2 = factor(d$SES_cat_2)
+
+d$SES_cat_3[d$SES >= ses_med_3] = 'High'
+d$SES_cat_3[d$SES < ses_med_3] = 'Low'
+d$SES_cat_3 = factor(d$SES_cat_3)
+```
+
+######Excluding Data
+
+```{r Outliers and Exclusisions}
+wtp_hi = mean(d$wtp) + sd(d$wtp)*3
+wtp_lo = mean(d$wtp) - sd(d$wtp)*3
+
+d.out = d[d$wtp > wtp_lo & d$wtp < wtp_hi,]
+
+d.final = d.out[d.out$age >= 21 & d.out$english == 'Yes',]
+```
+
+#####Confirmatory analysis
+
+```{r Planned Analyses}
+qplot(wtp,data=d.final)
+
+#Interaction with different medians - when SES is high
+reg_1_H = lm(wtp ~ cond * SES_cat_1, data = d.final); summary(reg_1_H)
+reg_2_H = lm(wtp ~ cond * SES_cat_2, data = d.final); summary(reg_2_H)
+reg_3_H = lm(wtp ~ cond * SES_cat_3, data = d.final); summary(reg_3_H)
+
+#Change simple effect
+contrasts(d.out$SES_cat_1)=cbind(High=c(1,0))
+contrasts(d.out$SES_cat_2)=cbind(High=c(1,0))
+contrasts(d.out$SES_cat_3)=cbind(High=c(1,0))
+
+#Interaction with different medians - when SES is low
+reg_1_L = lm(wtp ~ cond * SES_cat_1, data = d.final); summary(reg_1_L)
+reg_2_L = lm(wtp ~ cond * SES_cat_2, data = d.final); summary(reg_2_L)
+reg_3_L = lm(wtp ~ cond * SES_cat_3, data = d.final); summary(reg_3_L)
+
+#Interaction with continuous SES
+reg_c = lm(wtp ~ cond * SES, data = d.final); summary(reg_c)
+```
+
+#####Exploratory analyses
+
+```{r Exploratory Analyses}
+#Control for Liking of Beer
+qplot(x=beer_like,y=wtp,data=d.final)
+  +facet_wrap(~cond)
+
+reg_c_b = lm(wtp ~ cond * SES + beer_like, data = d.final); summary(reg_c_b)
+```
+
+####Discussion
+
+#####Summary of Replication Attempt
+Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+
+#####Commentary
+Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
