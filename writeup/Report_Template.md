@@ -1,6 +1,6 @@
 #REPORT TEMPLATE
 
-##Replication of Studies 1b-1d by Shah et al. (2015, Psychological Science)
+##Replication of Studies 1b-1c by Shah et al. (2015, Psychological Science)
 
 ###Josh Morris
 ###jimorris@stanford.edu
@@ -15,7 +15,7 @@ In this study, we attempted to replicate the results of Shah et al. by finding t
 
 #####Power Analysis
 
-Will fill out later.
+We calculated the power of studies 1b and 1c by recreating the analysis of Shah et al. We specifically used the t-statistic of the interaction terms from the analysis of scenario frame and median split SES on WTP from studies 1b and 1c.
 
 #####Planned Sample
 
@@ -60,10 +60,16 @@ The procedure was followed exactly as stated in the original study:
 
 #####Analysis Plan
 
-The analysis plan was simple. As with the original study, we removed outliers of the WTP measure that is more than 3 standard deviations from the mean. Next, we ran two interactions of scenario frame and income. In the first interaction we used a median split on income. In the second interaction we treated income as a continuous variable by taking the midpoint of the participant’s income bin (or $150,000 for the highest bin) and then dividing that value by the square root of the participant’s household size.
+The analysis plan was simple. As with the original study, we removed outliers of the WTP measure that is more than 3 standard deviations from the mean and converted the income and household numbers variables to a single measure of SES. Following the analysis from the original study, this SES value was calculated by taking the midpoint of the participant’s income bin (or $150,000 for the highest bin) and then dividing that value by the square root of the participant’s household size.
+
+Next, we ran two interaction analyses of scenario frame and SES.
+
+In the first analyses we used a median split on SES. For this analysis, we used three different median split criterias: a) the median split of the original Study 1b (where median SES = xxx); b) the median split of the original Study 1c (where median SES = xxx); and c) the median split of the replication sample (where median SES = xxx). An interaction of scenario and frame and SES (median split) was performed for each median split criteria.
+
+In the second analyses we treated SES as a continuous variable. An additional interaction of scenario frame and SES (continuous) was performed.
 
 #####Differences from Original Study
 
-The only differences are sample (from study 1d) and sample size. In the original study, the authors used 1b) mTurk, N = 151; 1c) mTurk, N = 604; and 1d) SSI, N = 2,015.
+The only difference is sample size. In the original study, the authors used 1b) mTurk, N = 151; 1c) mTurk, N = 604.
 
 In this replication, we only collected data from mTurk and with a sample of XX.
