@@ -127,13 +127,14 @@ function isNumberKey(evt)
 var experiment = {
 
 
-    // The object to be submitted.
+    // Participants will either have a value for wtp_b or wtp_g, depending on which condition they are in.
+    // the other value will just be equal to '$'.
     data: {
       wtp_b: [],
       wtp_g: [],
       income: [],
-      hh: [],
-      beer: [],
+      hh: [], // Refers to number in household
+      beer: [], //Refers to how much they like beer (1-5)
       gen: [],
       age: [],
       race_ethn: [],
@@ -197,7 +198,7 @@ var experiment = {
          }
       experiment.data.wtp_b.push(document.getElementById("wtp_amt_beach").value);
       experiment.data.wtp_g.push(document.getElementById("wtp_amt_grocery").value);
-      experiment.data.hh.push(document.getElementById("hh_num").value);
+      experiment.data.hh.push(document.getElementById("hh_num").value); // Refers to number in household
       experiment.data.age.push(document.getElementById("age-box").value);
       experiment.data.comments.push(document.getElementById("expcomments").value);
   }
