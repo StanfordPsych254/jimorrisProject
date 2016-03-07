@@ -17,7 +17,7 @@ In this study, we attempted to replicate the results of Shah et al. by finding t
 
 We calculated the power of studies 1b and 1c by recreating the analysis of Shah et al. We specifically used the t-statistic of the interaction terms from the analysis of scenario frame and median split SES on WTP from studies 1b and 1c.
 
-```{r Effct Size of 1b}
+```{r message=FALSE}
 library(curl)
 
 b = read.csv(curl("https://raw.githubusercontent.com/StanfordPsych254/jimorrisProject/master/original_materials_data/1b.csv"))
@@ -35,7 +35,7 @@ summary(lm(Beer~Split*Frame,data=b))
 
 With a sample of 151, the t-statistic of the interactive term is 2.919. This would suggest an effect size of .48. The R squared is equal to .082.
 
-```{r Effct Size of 1c}
+```{r message=FALSE}
 c = read.csv(curl("https://raw.githubusercontent.com/StanfordPsych254/jimorrisProject/master/original_materials_data/1c.csv"))
 
 c$Split = factor(c$split)
@@ -58,7 +58,7 @@ summary(lm(Beer~Split*Frame,data=c))
 
 With a sample of 604, the t-statistic of the interactive term is 2.350. This would suggest an effect size of .20. The R squared is equal to .037.
 
-```{r Meta Analysis}
+```{r message=FALSE}
 library(metafor)
 x=c(.48,.20)
 y=c(.082,.037)
@@ -68,16 +68,17 @@ rma(x,y,'FE')
 
 This would suggest an effect size overall of .29.
 
-```{r Power Analysis}
+```{r message=FALSE}
 library(pwr)
+pwr.t.test(n=350, d =.29, sig.level=.05) #Power = .97
+```
 
+```{r results='hide',message=FALSE}
 pwr.t.test(n=151,d=.29, sig.level=.05) #Power = .71
 pwr.t.test(n=580,d=.29, sig.level=.05) #Power = .99
 
 pwr.t.test(d =.29, sig.level=.05, power=.8) #n = 188
 pwr.t.test(d =.29, sig.level=.05, power=.9) #n = 250
-
-pwr.t.test(n=350, d =.29, sig.level=.05) #Power = .97
 
 pwr.t.test(n=350, sig.level=.05, power=.8) #ES for 80% power: d = .21
 ```
@@ -151,12 +152,11 @@ In this replication, we only collected data from mTurk and with a sample of XX.
 #####Differences from pre-data collection methods plan
 	Any differences from what was described as the original plan, or “none”.
 
-
 ####Results
 
 #####Data preparation
 
-```{r Packages}
+```{r message=FALSE}
 rm(list=ls())
 
 library(tidyr)
@@ -168,7 +168,7 @@ library(psych)
 
 ######Import Data
 
-```{r Data}
+```{r results='hide',message=FALSE, warning=FALSE}
 path = "/Users/Josh/Dropbox/Stanford PhD/Classes/Year 2/Winter 2016/Stats 254/Git/jimorrisProject/Projects/mturk/"
 files = dir(paste0(path,"sandbox-results/"), 
              pattern = "*.json")
@@ -260,17 +260,19 @@ d$SES_cat_3 = factor(d$SES_cat_3)
 ######Excluding Data
 
 ```{r Outliers and Exclusisions}
+#Remove Outliers (3 SD above and below mean)
 wtp_hi = mean(d$wtp) + sd(d$wtp)*3
 wtp_lo = mean(d$wtp) - sd(d$wtp)*3
 
 d.out = d[d$wtp > wtp_lo & d$wtp < wtp_hi,]
 
+#Exclude participant who are under 21 and don't have english as a native language
 d.final = d.out[d.out$age >= 21 & d.out$english == 'Yes',]
 ```
 
 #####Confirmatory analysis
 
-```{r Planned Analyses}
+```{r warning=FALSE}
 #Initial Visualization
 qplot(wtp,data=d.final) +
   facet_grid(cond~SES_cat_3)
@@ -325,8 +327,8 @@ reg_c = lm(wtp ~ cond * SES, data = d.final); summary(reg_c)
 
 ```{r Exploratory Analyses}
 #Control for Liking of Beer
-qplot(x=beer_like,y=wtp,data=d.final)
-  +facet_grid(cond~SES_cat_1)
+qplot(x=beer_like,y=wtp,data=d.final) +
+  facet_grid(cond~SES_cat_3)
 
 reg_c_b = lm(wtp ~ cond * SES + beer_like, data = d.final); summary(reg_c_b)
 ```
