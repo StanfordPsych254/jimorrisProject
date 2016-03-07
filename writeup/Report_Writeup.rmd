@@ -125,6 +125,8 @@ The procedure was followed exactly as stated in the original study:
 
     "Participants read the beer-on-the-beach scenario and indicated their WTP for the beer."
 
+The mockup of the experiment can be viewed here: https://web.stanford.edu/~jimorris/Shah_2015_Rep/shahrep.html.
+
 #####Analysis Plan
 
 The analysis plan was simple. As with the original study, we removed outliers of the WTP measure that is more than 3 standard deviations from the mean and converted the income and household numbers variables to a single measure of SES. Following the analysis from the original study, this SES value was calculated by taking the midpoint of the participant’s income bin (or $150,000 for the highest bin) and then dividing that value by the square root of the participant’s household size.
@@ -269,8 +271,36 @@ d.final = d.out[d.out$age >= 21 & d.out$english == 'Yes',]
 #####Confirmatory analysis
 
 ```{r Planned Analyses}
+#Initial Visualization
 qplot(wtp,data=d.final) +
-  facet_grid(cond~SES_cat_1)
+  facet_grid(cond~SES_cat_3)
+
+#Author Plot
+Sum_d = d.final %>%
+  group_by(cond,SES_cat_3) %>%
+  summarize(N = length(wtp),
+            WTP = mean(wtp, na.rm=TRUE),
+            sd   = sd(wtp, na.rm=TRUE),
+            se   = sd / sqrt(N))
+
+ggplot(Sum_d,aes(x=SES_cat_3, y=WTP, fill=cond)) + 
+  scale_fill_manual(values = c('#009999','#F58220')) +
+  geom_bar(position=position_dodge(), stat="identity",
+             colour="black",
+             size=.5) +
+    geom_errorbar(aes(ymin=WTP-se, ymax=WTP+se),
+                  size=.3,
+                  width=.2,
+                  position=position_dodge(.9)) +
+    xlab("\nSES") +
+    ylab("WTP ($)\n") +
+    theme(panel.background = element_rect(fill = 'white', colour = 'black')) + 
+    theme(axis.text.y = element_text(size=15)) + 
+    theme(axis.text.x = element_text(size=15)) + 
+    theme(axis.title.y = element_text(size=15)) + 
+    theme(axis.title.x = element_text(size=15)) +
+    theme(legend.text = element_text(size=15)) +
+    theme(legend.title = element_text(size=15))
 
 #Interaction with different medians - when SES is high
 reg_1_H = lm(wtp ~ cond * SES_cat_1, data = d.final); summary(reg_1_H)
