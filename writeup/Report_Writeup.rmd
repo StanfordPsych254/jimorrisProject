@@ -140,7 +140,7 @@ In the second analyses we treated SES as a continuous variable. An additional in
 
 #####Differences from Original Study
 
-The only difference is sample size. In the original study, the authors used 1b) mTurk, N = 151; 1c) mTurk, N = 604.
+The main difference is sample size. In the original study, the authors used 1b) mTurk, N = 151; 1c) mTurk, N = 604.
 
 In this replication, we only collected data from mTurk and with a sample of XX.
 
@@ -272,7 +272,7 @@ d.final = d.out[d.out$age >= 21 & d.out$english == 'Yes',]
 
 #####Confirmatory analysis
 
-```{r warning=FALSE}
+```{r message=FALSE, warning=FALSE}
 #Initial Visualization
 qplot(wtp,data=d.final) +
   facet_grid(cond~SES_cat_3)
