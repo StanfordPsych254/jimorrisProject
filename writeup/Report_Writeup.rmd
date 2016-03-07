@@ -269,7 +269,8 @@ d.final = d.out[d.out$age >= 21 & d.out$english == 'Yes',]
 #####Confirmatory analysis
 
 ```{r Planned Analyses}
-qplot(wtp,data=d.final)
+qplot(wtp,data=d.final) +
+  facet_grid(cond~SES_cat_1)
 
 #Interaction with different medians - when SES is high
 reg_1_H = lm(wtp ~ cond * SES_cat_1, data = d.final); summary(reg_1_H)
@@ -295,7 +296,7 @@ reg_c = lm(wtp ~ cond * SES, data = d.final); summary(reg_c)
 ```{r Exploratory Analyses}
 #Control for Liking of Beer
 qplot(x=beer_like,y=wtp,data=d.final)
-  +facet_wrap(~cond)
+  +facet_grid(cond~SES_cat_1)
 
 reg_c_b = lm(wtp ~ cond * SES + beer_like, data = d.final); summary(reg_c_b)
 ```
