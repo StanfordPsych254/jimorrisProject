@@ -1,6 +1,6 @@
 #REPORT TEMPLATE
 
-##Replication of Studies 1b-1c by Shah et al. (2015, Psychological Science)
+##Replication of Studies 1b-1c from Scarcity Frames Value by Shah et al. (2015, Psychological Science)
 
 ###Josh Morris
 ###jimorris@stanford.edu
@@ -9,13 +9,13 @@
 
 Shah et al. examined whether scarcity affects cognition and accordingly lowers an individual's susceptibility to context effects. In studies 1b-1d, the authors used a classic paradigm (Thaler's "beer on the beach" problem) to investigate how scaricty affects the role of context cues in product valuation.
 
-In this study, we attempted to replicate the results of Shah et al. by finding that the "beer on the beach" effect - where individuals provide higher WTP for an identical beer when it is to be purchased from a resort bar compared to a grocery store - is moderated by income level. Specfically, we expect that unlike individuals with high income, individuals with low income will not show a significant difference in WTP between purchase contexts.
+In this study, we attempted to replicate the results of Shah et al. by finding that the "beer on the beach" effect - where individuals provide a higher willingness to pay (WTP) for an identical beer when it is to be purchased from a resort bar compared to a grocery store - is moderated by income level. Specfically, we expect that unlike individuals with high income, individuals with low income will not show a significant difference in WTP between purchase contexts.
 
 ####Methods
 
 #####Power Analysis
 
-We calculated the power of studies 1b and 1c by recreating the analysis of Shah et al. We specifically used the t-statistic of the interaction terms from the analysis of scenario frame and median split SES on WTP from studies 1b and 1c.
+We calculated the power of studies 1b and 1c by recreating the analysis of Shah et al. Materials and data from the original study were made available online, here: https://osf.io/vyibm/files/. We specifically used the t-statistic of the interaction terms from the analysis of scenario frame and median split SES on WTP from studies 1b and 1c.
 
 ```{r message=FALSE}
 library(curl)
@@ -33,7 +33,7 @@ levels(b$Frame)[2] = 'Resort'
 summary(lm(Beer~Split*Frame,data=b))
 ```
 
-With a sample of 151, the t-statistic of the interactive term is 2.919. This would suggest an effect size of .48. The R squared is equal to .082.
+With a sample of 151, the t-statistic of the interactive term is 2.919. This would suggest an effect size of .48.
 
 ```{r message=FALSE}
 c = read.csv(curl("https://raw.githubusercontent.com/StanfordPsych254/jimorrisProject/master/original_materials_data/1c.csv"))
@@ -56,38 +56,18 @@ c=c[c$Beer < 20,]
 summary(lm(Beer~Split*Frame,data=c))
 ```
 
-With a sample of 604, the t-statistic of the interactive term is 2.350. This would suggest an effect size of .20. The R squared is equal to .037.
-
-```{r message=FALSE}
-library(metafor)
-x=c(.48,.20)
-y=c(.082,.037)
-
-rma(x,y,'FE')
-```
-
-This would suggest an effect size overall of .29.
+With a sample of 604, the t-statistic of the interactive term is 2.350. This would suggest an effect size of .20.
 
 ```{r message=FALSE}
 library(pwr)
-pwr.t.test(n=350, d =.29, sig.level=.05) #Power = .97
+pwr.t.test(d =.2, sig.level=.05, power = .8) #Power = .80
 ```
 
-```{r results='hide',message=FALSE}
-pwr.t.test(n=151,d=.29, sig.level=.05) #Power = .71
-pwr.t.test(n=580,d=.29, sig.level=.05) #Power = .99
-
-pwr.t.test(d =.29, sig.level=.05, power=.8) #n = 188
-pwr.t.test(d =.29, sig.level=.05, power=.9) #n = 250
-
-pwr.t.test(n=350, sig.level=.05, power=.8) #ES for 80% power: d = .21
-```
-
-At 350 participants, we estimate a power of .97.
+Since the smallest effect size in the mTurk studies run by the original authors was d = 0.20, we would need at at least 393 participants to have a power of 80%.
 
 #####Planned Sample
 
-We planned a sample of 350 participants from mTurk. We excluded the sample to only U.S. participants.
+We planned a sample of 400 participants from mTurk. We excluded the sample to only U.S. participants.
 
 #####Materials
 
@@ -126,11 +106,11 @@ The procedure was followed exactly as stated in the original study:
 
     "Participants read the beer-on-the-beach scenario and indicated their WTP for the beer."
 
-The mockup of the experiment can be viewed here: https://web.stanford.edu/~jimorris/Shah_2015_Rep/shahrep.html.
+The mockup of the experiment can be viewed here (open in new tab): https://web.stanford.edu/~jimorris/Shah_2015_Rep/shahrep.html.
 
 #####Analysis Plan
 
-The analysis plan was simple. As with the original study, we removed outliers of the WTP measure that is more than 3 standard deviations from the mean and converted the income and household numbers variables to a single measure of SES. Following the analysis from the original study, this SES value was calculated by taking the midpoint of the participant’s income bin (or $150,000 for the highest bin) and then dividing that value by the square root of the participant’s household size.
+As with the original study, we removed outliers of the WTP measure that is more than 3 standard deviations from the mean and converted the income and household numbers variables to a single measure of SES. Following the analysis from the original study, this SES value was calculated by taking the midpoint of the participant’s income bin (or $150,000 for the highest bin) and then dividing that value by the square root of the participant’s household size.
 
 Next, we ran two interaction analyses of scenario frame and SES.
 
@@ -140,17 +120,15 @@ In the second analyses we treated SES as a continuous variable. An additional in
 
 #####Differences from Original Study
 
-The main difference is sample size. In the original study, the authors used 1b) mTurk, N = 151; 1c) mTurk, N = 604.
-
-In this replication, we only collected data from mTurk and with a sample of XX.
+In the original study, the authors used 1b) mTurk, N = 151; 1c) mTurk, N = 604. This study had a sample size of 400 and also used mTurk.
 
 ####(Post Data Collection) Methods Addendum
 
 #####Actual Sample
-  sample size, demographics, data exclusions based on rules spelled out in analysis plan
+
 
 #####Differences from pre-data collection methods plan
-	Any differences from what was described as the original plan, or “none”.
+
 
 ####Results
 
@@ -236,6 +214,8 @@ d = d.raw %>%
 ```
 
 ######Median Splits
+
+We are running the median split analysis with three different median values - a) from Study 1b, b) from Study 1c, and c) from this sample. We are using the orignal median splits in order to analyze a more pure replication of Studies 1b and 1c. However, given that our sample for the replication may differ, we could have too few data points on one side or the other - so we will also use the sample median as well.
 
 ```{r Splits}
 #Median in Study 1b: 31819.80515
@@ -323,7 +303,9 @@ reg_3_L = lm(wtp ~ cond * SES_cat_3, data = d.final); summary(reg_3_L)
 reg_c = lm(wtp ~ cond * SES, data = d.final); summary(reg_c)
 ```
 
-#####Exploratory analyses
+#####Supplemental Analyses
+
+We also chose to add a supplemental analysis that controls for how much participants like beer. If liking of beer is corrlated with SES, controlling for liking of beer may explain some of the differences in the focal effect.
 
 ```{r Exploratory Analyses}
 #Control for Liking of Beer
@@ -336,7 +318,7 @@ reg_c_b = lm(wtp ~ cond * SES + beer_like, data = d.final); summary(reg_c_b)
 ####Discussion
 
 #####Summary of Replication Attempt
-Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+
 
 #####Commentary
-Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
+
