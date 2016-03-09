@@ -1,0 +1,45 @@
+{
+    "ApprovalTime": "2016-03-09T07:05:27Z",
+    "AutoApprovalTime": "2016-03-09T07:03:04Z",
+    "AssignmentId": "33CUSNVVNNCARI9H9VA93FI8904887",
+    "WorkerId": "A19HLDPO8QL34M",
+    "answers": {
+        "data": {
+            "wtp_g": [
+                "$10.99"
+            ],
+            "race_ethn": [
+                "white"
+            ],
+            "engl": [
+                "Yes"
+            ],
+            "wtp_b": [
+                "$"
+            ],
+            "age": [
+                "26"
+            ],
+            "beer": [
+                "6"
+            ],
+            "comments": [
+                "You should be more specific on the quantity of beer which your friend will be buying. "
+            ],
+            "hh": [
+                "1"
+            ],
+            "income": [
+                "6"
+            ],
+            "gen": [
+                "Male"
+            ]
+        }
+    },
+    "AcceptTime": "2016-03-09T06:55:37Z",
+    "HITId": "3SA4EMRVJV2AS152A5U472BU51EP0Y",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-03-09T06:58:04Z"
+}
