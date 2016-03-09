@@ -97,8 +97,25 @@ $(function() {
 
 //Other
   $('#go-to-comments').click(function(event) {
+    var completed = true;
+
+    if (
+      !$("input:radio[name='gender']:checked").val() || 
+      !$("input:radio[name='english']:checked").val() ||
+      !$("input:checkbox[name='race']:checked").val() ||
+      !$('#age-box').val()
+    ) {
+      $('.error').removeClass('hidden');
+      completed = false;
+      window.scrollTo(0,0);
+    }
+
+    if (completed) {
+    window.scrollTo(0,0);
     $('#other_demos').addClass('hidden');
     $('#comments').removeClass('hidden');
+    $('.error').addClass('hidden');
+  }
   });
 
 //Comments
