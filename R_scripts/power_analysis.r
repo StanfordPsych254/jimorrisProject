@@ -1,8 +1,7 @@
-b = read.csv('/Users/Josh/Dropbox/Stanford PhD/Classes/Year 2/Winter 2016/Stats 254/Problem Sets/Git/jimorrisProject/original_materials_data/1b.csv')
-  
-c = read.csv('/Users/Josh/Dropbox/Stanford PhD/Classes/Year 2/Winter 2016/Stats 254/Problem Sets/Git/jimorrisProject/original_materials_data/1c.csv')
+library(curl)
 
-d = read.csv('/Users/Josh/Dropbox/Stanford PhD/Classes/Year 2/Winter 2016/Stats 254/Problem Sets/Git/jimorrisProject/original_materials_data/1d.csv')
+b = read.csv( curl("https://raw.githubusercontent.com/StanfordPsych254/jimorrisProject/master/original_materials_data/1b.csv") )
+c = read.csv( curl("https://raw.githubusercontent.com/StanfordPsych254/jimorrisProject/master/original_materials_data/1c.csv") )
 
 b$Split = factor(b$Split)
 levels(b$Split)[1] = 'Low'
