@@ -18,6 +18,8 @@ In this study, we attempted to replicate the results of Shah et al. by finding t
 We calculated the power of studies 1b and 1c by recreating the analysis of Shah et al. Materials and data from the original study were made available online, here: https://osf.io/vyibm/files/. We specifically used the t-statistic of the interaction terms from the analysis of scenario frame and median split SES on WTP from studies 1b and 1c.
 
 ```{r message=FALSE}
+rm(list=ls())
+
 library(curl)
 
 b = read.csv(curl("https://raw.githubusercontent.com/StanfordPsych254/jimorrisProject/master/original_materials_data/1b.csv"))
@@ -135,8 +137,6 @@ In the original study, the authors used 1b) mTurk, N = 151; 1c) mTurk, N = 604. 
 #####Data preparation
 
 ```{r message=FALSE}
-rm(list=ls())
-
 library(tidyr)
 library(dplyr)
 library(ggplot2)
