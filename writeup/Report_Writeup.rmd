@@ -69,7 +69,7 @@ Since the smallest effect size in the mTurk studies run by the original authors 
 
 #####Planned Sample
 
-We planned a sample of 400 participants from mTurk. We excluded the sample to only U.S. participants.
+We planned a sample of 413 participants from mTurk (this is 393 participants for 80% power + 5%). We excluded the sample to only U.S. participants.
 
 #####Materials
 
@@ -122,7 +122,7 @@ In the second analyses we treated SES as a continuous variable. An additional in
 
 #####Differences from Original Study
 
-In the original study, the authors used 1b) mTurk, N = 151; 1c) mTurk, N = 604. This study had a sample size of 400 and also used mTurk.
+In the original study, the authors used 1b) mTurk, N = 151; 1c) mTurk, N = 604. This study had a sample size of 413 and also used mTurk.
 
 ####(Post Data Collection) Methods Addendum
 
