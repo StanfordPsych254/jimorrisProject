@@ -1,0 +1,45 @@
+{
+    "ApprovalTime": "2016-03-10T07:35:27Z",
+    "AutoApprovalTime": "2016-03-10T07:32:10Z",
+    "AssignmentId": "39L1G8WVWQR6FLJQYT6YXONPFB813W",
+    "WorkerId": "AC6USUBBQBAVT",
+    "answers": {
+        "data": {
+            "wtp_g": [
+                "$"
+            ],
+            "race_ethn": [
+                "other"
+            ],
+            "engl": [
+                "Yes"
+            ],
+            "wtp_b": [
+                "$7.00"
+            ],
+            "age": [
+                "23"
+            ],
+            "beer": [
+                "6"
+            ],
+            "comments": [
+                "I'd say an expensive beer once in a while is not too bad on the wallet"
+            ],
+            "hh": [
+                "4"
+            ],
+            "income": [
+                "7"
+            ],
+            "gen": [
+                "Male"
+            ]
+        }
+    },
+    "AcceptTime": "2016-03-10T07:25:36Z",
+    "HITId": "3Z56AA6EK40ZL9U4KEITZZRQD1Z6MY",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-03-10T07:27:10Z"
+}

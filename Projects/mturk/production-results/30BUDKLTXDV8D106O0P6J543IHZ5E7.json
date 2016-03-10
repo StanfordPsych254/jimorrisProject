@@ -1,0 +1,44 @@
+{
+    "AutoApprovalTime": "2016-03-10T17:03:08Z",
+    "AssignmentId": "30BUDKLTXDV8D106O0P6J543IHZ5E7",
+    "WorkerId": "A35ORTUT3E2INH",
+    "answers": {
+        "data": {
+            "wtp_g": [
+                "$6"
+            ],
+            "race_ethn": [
+                "white"
+            ],
+            "engl": [
+                "Yes"
+            ],
+            "wtp_b": [
+                "$"
+            ],
+            "age": [
+                "31"
+            ],
+            "beer": [
+                "3"
+            ],
+            "comments": [
+                "I looked at it like I would buying a soda at Disney World; there's a context/situational value that makes me willing to pay a higher price than I normally would. "
+            ],
+            "hh": [
+                "2"
+            ],
+            "income": [
+                "6"
+            ],
+            "gen": [
+                "Female"
+            ]
+        }
+    },
+    "AcceptTime": "2016-03-10T16:56:43Z",
+    "HITId": "3Z56AA6EK40ZL9U4KEITZZRQD1Z6MY",
+    "Assignment": "",
+    "AssignmentStatus": "Submitted",
+    "SubmitTime": "2016-03-10T16:58:08Z"
+}

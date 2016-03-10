@@ -1,0 +1,45 @@
+{
+    "ApprovalTime": "2016-03-10T18:20:28Z",
+    "AutoApprovalTime": "2016-03-10T18:19:57Z",
+    "AssignmentId": "34X6J5FLPTY5H35WMTO0EWCMJLTQJ1",
+    "WorkerId": "A1XQE5Q35OH54B",
+    "answers": {
+        "data": {
+            "wtp_g": [
+                "$2"
+            ],
+            "race_ethn": [
+                "white"
+            ],
+            "engl": [
+                "Yes"
+            ],
+            "wtp_b": [
+                "$"
+            ],
+            "age": [
+                "25"
+            ],
+            "beer": [
+                "1"
+            ],
+            "comments": [
+                ""
+            ],
+            "hh": [
+                "4"
+            ],
+            "income": [
+                "6"
+            ],
+            "gen": [
+                "Male"
+            ]
+        }
+    },
+    "AcceptTime": "2016-03-10T18:14:15Z",
+    "HITId": "3Z56AA6EK40ZL9U4KEITZZRQD1Z6MY",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-03-10T18:14:57Z"
+}

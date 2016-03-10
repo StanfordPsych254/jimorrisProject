@@ -1,0 +1,45 @@
+{
+    "ApprovalTime": "2016-03-10T18:00:27Z",
+    "AutoApprovalTime": "2016-03-10T17:56:03Z",
+    "AssignmentId": "33FBRBDW6OZC3LZUQ7QE51ERZVU8CQ",
+    "WorkerId": "A33N23O9MJTBYP",
+    "answers": {
+        "data": {
+            "wtp_g": [
+                "$7"
+            ],
+            "race_ethn": [
+                "amInd"
+            ],
+            "engl": [
+                "Yes"
+            ],
+            "wtp_b": [
+                "$"
+            ],
+            "age": [
+                "21"
+            ],
+            "beer": [
+                "3"
+            ],
+            "comments": [
+                "None, although I wonder what purpose the question serves for the study, unless its to correlate how much a person is willing to spend if they require a proxy buyer to make the purchase, even if they are a person with close relations."
+            ],
+            "hh": [
+                "3"
+            ],
+            "income": [
+                "5"
+            ],
+            "gen": [
+                "Male"
+            ]
+        }
+    },
+    "AcceptTime": "2016-03-10T17:42:41Z",
+    "HITId": "3Z56AA6EK40ZL9U4KEITZZRQD1Z6MY",
+    "Assignment": "",
+    "AssignmentStatus": "Approved",
+    "SubmitTime": "2016-03-10T17:51:03Z"
+}
