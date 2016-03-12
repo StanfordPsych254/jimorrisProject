@@ -210,8 +210,10 @@ d.raw$english = factor(d.raw$english)
 
 d.raw$race = factor(d.raw$race)
 
+#Remove Duplicates
 d = d.raw %>%
-  select(workerid,Frame,wtp,SES,income_num,hh_num,beer_like,gender,age,english,race)
+  select(workerid,Frame,wtp,SES,income_num,hh_num,beer_like,gender,age,english,race) %>%
+  distinct(workerid)
 ```
 
 ######Median Splits
@@ -241,6 +243,9 @@ d$SES_cat_3 = factor(d$SES_cat_3, levels = c('Low','High'))
 ######Excluding Data
 
 ```{r Outliers and Exclusisions}
+#Exclude Data who saw both conditions in error - not Pre-registered
+d = d[d$workerid != 'A1V9EDXHNQGAFV',]
+
 #Remove Outliers (3 SD above and below mean)
 wtp_hi = mean(d$wtp) + sd(d$wtp)*3
 wtp_lo = mean(d$wtp) - sd(d$wtp)*3
@@ -248,7 +253,8 @@ wtp_lo = mean(d$wtp) - sd(d$wtp)*3
 d.out = d[d$wtp > wtp_lo & d$wtp < wtp_hi,]
 
 #Exclude participant who are under 21 and don't have english as a native language
-d.final = d.out[d.out$age >= 21 & d.out$english == 'Yes',]
+#Also those who select 0 for household - not Pre-Registered
+d.final = d.out[d.out$age >= 21 & d.out$english == 'Yes' & d.out$hh_num != 0,]
 ```
 
 ##Confirmatory Analysis
@@ -350,9 +356,9 @@ reg_1_H = lm(wtp ~ Frame * SES_cat_1, data = d.final); kable(summary(reg_1_H)$co
 reg_2_H = lm(wtp ~ Frame * SES_cat_2, data = d.final); kable(summary(reg_2_H)$coef)
 
 #Change contrasts to see simple effects of Frame when SES is low
-contrasts(d.final$SES_cat_1)=cbind(High=c(1,0))
-contrasts(d.final$SES_cat_2)=cbind(High=c(1,0))
-contrasts(d.final$SES_cat_3)=cbind(High=c(1,0))
+contrasts(d.final$SES_cat_1)=cbind(Low=c(1,0))
+contrasts(d.final$SES_cat_2)=cbind(Low=c(1,0))
+contrasts(d.final$SES_cat_3)=cbind(Low=c(1,0))
 
 #Interaction with different medians - when SES is low
 
@@ -389,14 +395,14 @@ ggplot(d.final,aes(x=beer_like,y=wtp,group=Frame,color=Frame)) +
 
 ```{r message=FALSE, warning=FALSE}
 #3-way Interaction with liking of beer
-reg_c_b.1 = lm(wtp ~ Frame * SES * beer_like, data = d.final); kable(summary(reg_c_b.1)$coef)
+reg_c_b.1 = lm(wtp ~ Frame * SES * I(scale(beer_like)-1), data = d.final); kable(summary(reg_c_b.1)$coef)
 
 #Interaction controlling for liking of beer
 reg_c_b.2 = lm(wtp ~ Frame * SES + beer_like, data = d.final); kable(summary(reg_c_b.2)$coef)
 
 #Interaction excluding individuals who do not like beer
 d.beer = d.final[d.final$beer_like != 1,]
-reg_c_b.3 = lm(wtp ~ Frame * SES, data = d.beer); kable(summary(reg_c_b.3)$coef)
+reg_c_b.3 = lm(wtp ~ Frame * I(scale(SES)), data = d.beer); kable(summary(reg_c_b.3)$coef)
 ```
 
 ####Discussion
