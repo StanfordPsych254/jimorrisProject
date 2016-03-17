@@ -1,19 +1,17 @@
-#REPORT TEMPLATE
+#Replication of Studies 1b-1c from Scarcity Frames Value by Shah et al. (2015, Psychological Science)
 
-##Replication of Studies 1b-1c from Scarcity Frames Value by Shah et al. (2015, Psychological Science)
+##Josh Morris
+##jimorris@stanford.edu
 
-###Josh Morris
-###jimorris@stanford.edu
-
-####Introduction
+###Introduction
 
 Shah et al. examined whether scarcity affects cognition and accordingly lowers an individual's susceptibility to context effects. In studies 1b-1d, the authors used a classic paradigm (Thaler's "beer on the beach" problem) to investigate how scaricty affects the role of context cues in product valuation.
 
 In this study, we attempted to replicate the results of Shah et al. by finding that the "beer on the beach" effect - where individuals provide a higher willingness to pay (WTP) for an identical beer when it is to be purchased from a resort bar compared to a grocery store - is moderated by income level. Specfically, we expect that unlike individuals with high income, individuals with low income will not show a significant difference in WTP between purchase contexts.
 
-####Methods
+###Methods
 
-#####Power Analysis
+####Power Analysis
 
 We calculated the power of studies 1b and 1c by recreating the analysis of Shah et al. Materials and data from the original study were made available online, here: https://osf.io/vyibm/files/. We specifically used the t-statistic of the interaction terms from the analysis of scenario frame and median split SES on WTP from studies 1b and 1c.
 
@@ -67,11 +65,11 @@ pwr.t.test(d =.2, sig.level=.05, power = .8) #Power = .80
 
 Since the smallest effect size in the mTurk studies run by the original authors was d = 0.20, we would need at at least 393 participants to have a power of 80%.
 
-#####Planned Sample
+####Planned Sample
 
 We planned a sample of 413 participants from mTurk (this is 393 participants for 80% power + 5%). The additional 5% is intended to keep power around 80% after exclusions (such as outliers 3 SD away from the mean; see below). We limited the sample to only U.S. participants.
 
-#####Materials
+####Materials
 
 The materials from the original study were provided by the authors online. 
 
@@ -102,7 +100,7 @@ Finally, we also asked for the number of members in each household:
 
     "Including you, how many people live in your household? (open ended)"
 
-#####Procedure
+####Procedure
 
 The procedure was followed exactly as stated in the original study:
 
@@ -110,7 +108,7 @@ The procedure was followed exactly as stated in the original study:
 
 The mockup of the experiment can be viewed here (open in new tab): https://web.stanford.edu/~jimorris/Shah_2015_Rep/shahrep.html.
 
-#####Analysis Plan
+####Analysis Plan
 
 As with the original study, we removed outliers of the WTP measure that is more than 3 standard deviations from the mean and converted the income and household numbers variables to a single measure of SES. Following the analysis from the original study, this SES value was calculated by taking the midpoint of the participant’s income bin (or $150,000 for the highest bin) and then dividing that value by the square root of the participant’s household size.
 
@@ -120,21 +118,25 @@ In the first analyses we used a median split on SES. For this analysis, we used 
 
 In the second analyses we treated SES as a continuous variable. An additional interaction of scenario frame and SES (continuous) was performed.
 
-#####Differences from Original Study
+####Differences from Original Study
 
 In the original study, the authors used 1b) mTurk, N = 151; 1c) mTurk, N = 604. The current study had a sample size of 413 and also used mTurk.
 
-####(Post Data Collection) Methods Addendum
+###(Post Data Collection) Methods Addendum
 
-#####Actual Sample
+####Actual Sample
 
+The sample size was 413 (37% Female), with a median age of 31. 82% of participants identified themesleves as being caucasian.
 
-#####Differences from pre-data collection methods plan
+There were serveral exclusions. Nine participants were excluded as outliers - following the pre-registered criteria of selecting willingness to pay amounts that were at least three standard deviations beyond the mean. Sixteen participants were excluded due to the pre-registered criteria of being under 21 or not being a native English speaker. Finally, although originally not pre-registered for, one participant was excluded due to an experimental error and one participant was removed for entering a household size of 0. This led to a final sample of 387.
 
+####Differences from pre-data collection methods plan
 
-####Results
+There were some slight changes from the pre-data collection plan. As stated above, we excluded a participant due to an error and one participant was removed for entering a household size of 0.
 
-#####Data preparation
+###Results
+
+####Data preparation
 
 ```{r message=FALSE}
 library(tidyr)
@@ -145,7 +147,7 @@ library(psych)
 library(knitr)
 ```
 
-######Import Data
+#####Import Data
 
 ```{r results='hide',message=FALSE, warning=FALSE}
 path = "/Users/Josh/Dropbox/Stanford PhD/Classes/Year 2/Winter 2016/Stats 254/Git/jimorrisProject/Projects/mturk/"
@@ -171,7 +173,7 @@ for (f in files) {
 }
 ```
 
-##Cleaning Data
+#####Cleaning Data
 
 ```{r Clean}
 d.raw$cond[d.raw$wtp_g == '$'] = 'Resort'
@@ -209,14 +211,25 @@ levels(d.raw$gender) = c("Female","Male","Other")
 d.raw$english = factor(d.raw$english)
 
 d.raw$race = factor(d.raw$race)
+```
 
-#Remove Duplicates
+```{r Race and Ethnicity}
+table(d.raw$race)
+```
+
+```{r Remove Race and Ethnicity Duplicates}
+#Remove Duplicates from race
 d = d.raw %>%
   select(workerid,Frame,wtp,SES,income_num,hh_num,beer_like,gender,age,english,race) %>%
   distinct(workerid)
 ```
 
-######Median Splits
+```{r Age and Gender}
+summary(d$age)
+table(d$gender)
+```
+
+#####Median Splits
 
 We are running the median split analysis with three different median values - a) from Study 1b, b) from Study 1c, and c) from this sample. We are using the orignal median splits in order to analyze a more pure replication of Studies 1b and 1c. However, given that our sample for the replication may differ, we could have too few data points on one side or the other - so we will also use the sample median as well.
 
@@ -240,7 +253,7 @@ d$SES_cat_3[d$SES >= ses_med_3] = 'High'
 d$SES_cat_3 = factor(d$SES_cat_3, levels = c('Low','High'))
 ```
 
-######Excluding Data
+#####Excluding Data
 
 ```{r Outliers and Exclusisions}
 #Exclude Data who saw both conditions in error - not Pre-registered
@@ -250,6 +263,7 @@ d = d[d$workerid != 'A1V9EDXHNQGAFV',]
 wtp_hi = mean(d$wtp) + sd(d$wtp)*3
 wtp_lo = mean(d$wtp) - sd(d$wtp)*3
 
+#10 outliers were removed
 d.out = d[d$wtp > wtp_lo & d$wtp < wtp_hi,]
 
 #Exclude participant who are under 21 and don't have english as a native language
@@ -257,9 +271,9 @@ d.out = d[d$wtp > wtp_lo & d$wtp < wtp_hi,]
 d.final = d.out[d.out$age >= 21 & d.out$english == 'Yes' & d.out$hh_num != 0,]
 ```
 
-##Confirmatory Analysis
+###Confirmatory Analysis
 
-###Visualizations
+####Basic Visualization
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
 qplot(wtp,data=d.final) +
@@ -372,7 +386,7 @@ reg_2_L = lm(wtp ~ Frame * SES_cat_2, data = d.final); kable(summary(reg_2_L)$co
 reg_3_L = lm(wtp ~ Frame * SES_cat_3, data = d.final); kable(summary(reg_3_L)$coef)
 
 #Interaction with continuous SES
-reg_c = lm(wtp ~ Frame * SES, data = d.final); kable(summary(reg_c)$coef)
+reg_c = lm(wtp ~ Frame * scale(SES), data = d.final); kable(summary(reg_c)$coef)
 ```
 
 ###Supplemental Analyses
@@ -405,10 +419,15 @@ d.beer = d.final[d.final$beer_like != 1,]
 reg_c_b.3 = lm(wtp ~ Frame * I(scale(SES)), data = d.beer); kable(summary(reg_c_b.3)$coef)
 ```
 
-####Discussion
+###Discussion
 
-#####Summary of Replication Attempt
+####Summary of Replication Attempt
 
+The primary result of the replication analysis was the interaction of Frame and the median split of SES on WTP. Indeed, the result replicated. The interaction was significant, *b* = 1.71, *t* = 3.07, *p* = .002. Additionally, the simple effect of Frame on WTP was significant among participants high in SES (*b* = 1.86, *t* = 4.76, *p* < .001), however, it was not significant among participants low in SES (*b* = .15, *t* = 0.37, *p* = .711).
 
-#####Commentary
+####Commentary
+
+In addition to replicating on the pre-registered key replication statistic, a number of robustness tests also replicated. This includes: a) the same interactions using median splits derived from the medians of the authors' original tests; and b) the same interaction when treating SES as a continuous measure.
+
+Furthermore, we collected data regarding participant's liking of beer and the key interaction was also significant when controlling for liking of beer and when exluding participants who rated liking of beer at the lowest value ("1 - Not At All"). One interesting potential follow-up is that a three-way interaction of Frame, SES, and beer liking was marginally significant (*p* = .102). Since a three-way interaction may have been under-powered in this sample, future research could seek to explore this potential boundary.
 
